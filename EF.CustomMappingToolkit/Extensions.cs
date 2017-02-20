@@ -15,6 +15,11 @@ namespace EF.CustomMappingToolkit
             return new CustomMappingCompatibleQuery<T>(query);
         }
 
+        public static Expression<TDelegate> MakeCustomMappingCompatible<TDelegate>(this Expression<TDelegate> expr)
+        {
+            return (Expression<TDelegate>)new EnumAsStringExpressionVisitor().Visit(expr);
+        }
+
         public static Expression MakeCustomMappingCompatible(this Expression expr)
         {
             return new EnumAsStringExpressionVisitor().Visit(expr);
